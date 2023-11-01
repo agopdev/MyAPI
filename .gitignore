@@ -1,0 +1,33 @@
+# Ignore Composer-related files and directories
+/vendor/
+/vendor/*
+!vendor/.gitkeep
+/composer.phar
+/composer.lock
+
+# Ignore environment-specific files
+/.env
+/.env.local
+/.env.*.php
+.env.local.php
+
+# Ignore logs and caches
+/var/
+/log/
+/public/bundles/
+/var/cache/
+/var/log/
+
+# Ignore user-specific files
+/.idea/
+/.vscode/
+
+# Ignore system files
+/.DS_Store
+/.DS_Store?
+/._*
+/Thumbs.db
+
+# Ignore local configuration files
+/app/config/parameters.yml
+/app/config/parameters.yml.dist

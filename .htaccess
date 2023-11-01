@@ -1,0 +1,31 @@
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# !! CAUTION:                                                         !!
+# !! Making any changes to this file can break your web app.          !!
+# ¡¡ Please proceed only if you are familiar with the .htaccess file. ¡¡
+# ¡¡ Some options are commented by default, if you need it, just      ¡¡
+# ¡¡ uncomment the line.                                              ¡¡
+# ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡
+
+
+# -- Access control --
+# Header set Access-Control-Allow-Origin "*"
+# Header set Access-Control-Allow-Methods "DELETE, POST, GET, PUT, OPTIONS"
+# Header set Access-Control-Allow-Headers "Origin, Content-Type"
+# Header set Access-Control-Request-Headers "Origin, Content-Type"
+# Header set Access-Control-Allow-Credentials false
+Header add X-Frame-Options "SAMEORIGIN"
+
+# -- Index all directories --
+Options All -Indexes
+
+# -- Allow rewrite permissions for custom directories --
+RewriteEngine On
+
+# -- Restrict Access to .php Files in the Web App --
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule \.php$ - [F,L]
+
+# -- Redirect All Requests to index.php --
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php
