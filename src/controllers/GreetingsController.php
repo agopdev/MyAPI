@@ -8,12 +8,12 @@ class GreetingsController{
 
     // Here you can administrate your routes
     const routes = array(
-        '/greetings/greet' => 'GET@sayHelloWorld',
-        '/greetings/greet-age/\d+' => 'GET@sayHelloWithAge',
-        '/greetings/greet-full-data'=> 'POST@sayHelloFullData'
+        'GET@/greetings/greet' => 'sayHelloWorld',
+        'GET@/greetings/greet-age/\d+' => 'sayHelloWithAge',
+        'POST@/greetings/greet-full-data'=> 'sayHelloFullData'
     );
 
-    public static function sayHelloWorld(){
+    public static function sayHelloWorld($req){
         try {
             Greeting::sayHelloWorld();
         } catch (Exception $e) {
@@ -21,11 +21,11 @@ class GreetingsController{
         }
     }
 
-    public static function sayHelloWithAge(){
+    public static function sayHelloWithAge($req){
         try {
             $data = array(
                 'age' => 
-                $uri[3]
+                $req->params[3]
             );
             Greeting::sayHelloWithAge($data);
         } catch (Exception $e) {
@@ -33,7 +33,7 @@ class GreetingsController{
         }
     }
 
-    public static function sayHelloWorldFullData(){
+    public static function sayHelloWorldFullData($req){
         try {
             Greeting::sayHelloWorldFullData();
         } catch (Exception $e) {

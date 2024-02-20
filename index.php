@@ -14,15 +14,9 @@ require_once ROOT_PATH . '/src/controllers/GreetingsController.php';
 date_default_timezone_set('America/Mexico_City');
 header("Content-Type: application/json");
 
-if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
-    define('URL_APP', 'http://localhost:8001'); // Change for local debugging
-} else {
-    define('URL_APP', 'https://www.mydomain.com' ); // Change for production domain
-}
-
+// Controllers associations
 $routesController = array(
-    'greetings' => 'GreetingsController',
-    'travels' => 'TravelController'
+    'greetings' => 'GreetingsController'
 );
 
 Api::handleCalls($routesController);

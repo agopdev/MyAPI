@@ -6,18 +6,7 @@ class Api {
     private static $uri;
     private static $routesController;
     private static $api;
-
-    public static function handleCalls($routesController){
-
-        self::loadInstance($routesController);
-
-        $controller = self::getController();
-        
-        if (self::callRoute($controller) === false) {
-            http_response_code(500);
-            return;
-        }
-    }
+    private static $req;
 
     private function __construct($routesController){
 
@@ -65,17 +54,55 @@ class Api {
         $sliced_uri = array_slice(self::$api->uri, 1);
         $requested_uri = '/' . implode('/', $sliced_uri);
         $requested_uri = (substr($requested_uri, -1) === '/') ? rtrim($requested_uri, '/') : $requested_uri;
-        $matched_route = null;
+        $requested_uri_format = $server_http_method . '@' . $requested_uri;
+        $controller_method = null;
 
         foreach ($routes as $pattern => $route){
-            if (preg_match("#^$pattern$#", $requested_uri)){
-                $matched_route = $route;
+            if (preg_match("#^$pattern$#", $requested_uri_format)){
+                $controller_method = $route;
                 break;
             }
         }
-        list($http_method, $controller_method) = (count($matched_route = explode('@', $matched_route)) === 2) ? [$matched_route[0], $matched_route[1]] : [null, null];
 
-        return $http_method == $server_http_method ? $controller::$controller_method() : false;
+        $req_params = null;
+        $req_body = null;
+
+        $req_params = self::$api->uri;
+
+        $body = file_get_contents('php://input');
+    
+        if (!empty($body)) {
+            $json_body = file_get_contents('php://input');
+            $req_body = json_decode($json_body, true);
+        }
+
+        self::$req = new Request($req_params, $req_body);
+
+        return $controller::$controller_method(self::$req);
     }
 
+    public static function handleCalls($routesController){
+        self::loadInstance($routesController);
+
+        $controller = self::getController();
+        
+        if (self::callRoute($controller) === false) {
+            http_response_code(500);
+            return;
+        }
+    }
+
+}
+
+class Request {
+
+    public static $params;
+    public static $body;
+
+    public function __construct($params, $body){
+
+        $this->params = $params;
+        $this->body = $body;
+
+    }
 }
