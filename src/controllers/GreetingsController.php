@@ -8,9 +8,10 @@ class GreetingsController{
 
     // Here you can administrate your routes
     const routes = array(
-        'GET@/greetings/greet' => 'sayHelloWorld',
+        'GET@/greetings/hello-world' => 'sayHelloWorld',
+        'GET@/greetings/greet-name/.*' => 'sayHelloWithName',
         'GET@/greetings/greet-age/\d+' => 'sayHelloWithAge',
-        'POST@/greetings/greet-full-data'=> 'sayHelloFullData'
+        'POST@/greetings/greet-name-age'=> 'sayHelloWithNameAndAge'
     );
 
     public static function sayHelloWorld($req){
@@ -21,11 +22,23 @@ class GreetingsController{
         }
     }
 
+    public static function sayHelloWithName($req){
+        try {
+            $data = array(
+                'name' => 
+                    $req->params[3]
+            );
+            Greeting::sayHelloWithName($data);
+        } catch (Exception $e) {
+            echo json_encode(['message'=> $e->getMessage()]);
+        }
+    }
+
     public static function sayHelloWithAge($req){
         try {
             $data = array(
                 'age' => 
-                $req->params[3]
+                    $req->params[3]
             );
             Greeting::sayHelloWithAge($data);
         } catch (Exception $e) {
@@ -33,9 +46,15 @@ class GreetingsController{
         }
     }
 
-    public static function sayHelloWorldFullData($req){
+    public static function sayHelloWithNameAndAge($req){
         try {
-            Greeting::sayHelloWorldFullData();
+            $data = array(
+                'name' => 
+                    $req->body['name'],
+                'age' => 
+                    $req->body['age']
+            );
+            Greeting::sayHelloWithNameAndAge($data);
         } catch (Exception $e) {
             echo json_encode(['message'=> $e->getMessage()]);
         }

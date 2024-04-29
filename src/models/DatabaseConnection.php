@@ -9,8 +9,10 @@ class DatabaseConnection {
         $url = $_SERVER['HTTP_HOST'];
 
         if (strpos($url, 'local') !== false) {
-            $this->mysqli = new mysqli('localhost', 'root', 'root', 'RoadAlert');
+            // Modify for local testing
+            $this->mysqli = new mysqli('localhost', 'user', 'password', 'database_name');
         } else {
+            // Modify for production enviroment
             $this->mysqli = new mysqli('mysql', 'user', 'password', 'database_name');
         }
     }

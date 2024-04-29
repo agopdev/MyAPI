@@ -1,17 +1,17 @@
 {
-    "name": "webfront/project-name",
-    "description": "A WebFront application",
+    "name": "myapi/project-name",
+    "description": "A MyApi RESTful API",
     "type": "project",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Webfront\\ProjectName\\": "src/"
+            "MyApi\\ProjectName\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Author",
-            "email": "author@email.com"
+            "name": "Your Name",
+            "email": "youremail@email.com"
         }
     ],
     "require": {}
