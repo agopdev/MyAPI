@@ -1,6 +1,6 @@
 <?php
 
-class Api {
+class MyApi {
 
     private static $root;
     private static $uri;
@@ -22,7 +22,7 @@ class Api {
 
     private static function loadInstance($routesController){
         if (empty(self::$api)){
-            self::$api = new Api($routesController);
+            self::$api = new MyApi($routesController);
         }
     }
     
@@ -62,6 +62,11 @@ class Api {
                 $controller_method = $route;
                 break;
             }
+        }
+
+        if (empty($controller_method)){
+            http_response_code(404);
+            return;
         }
 
         $req_params = null;

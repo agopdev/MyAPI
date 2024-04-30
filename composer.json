@@ -1,6 +1,6 @@
 {
     "name": "myapi/project-name",
-    "description": "A MyApi RESTful API",
+    "description": "A MyApi RESTful API Template",
     "type": "project",
     "license": "MIT",
     "autoload": {

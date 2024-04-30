@@ -2,8 +2,6 @@
 
 $root = ROOT_PATH;
 
-require_once("{$root}/src/models/DatabaseConnection.php");
-
 class Greeting{
     public static function sayHelloWorld(){
         echo json_encode(['message' => 'Hello world!']);
