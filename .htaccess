@@ -6,10 +6,15 @@
 # ¡¡ uncomment the line.                                              ¡¡
 # ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡
 
+# -- Block access to other files
+<FilesMatch "\.(?!(php)$)[^\.]+$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
 
 # -- Access control --
-# Header set Access-Control-Allow-Origin "*"
-# Header set Access-Control-Allow-Methods "DELETE, POST, GET, PUT, OPTIONS"
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "DELETE, POST, GET, PUT, OPTIONS"
 # Header set Access-Control-Allow-Headers "Origin, Content-Type"
 # Header set Access-Control-Request-Headers "Origin, Content-Type"
 # Header set Access-Control-Allow-Credentials false
