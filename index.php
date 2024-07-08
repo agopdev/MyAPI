@@ -1,5 +1,11 @@
 <?php
 
+// Check server estatus
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    return;
+}
+
 // Constants
 define('API_VERSION', '1.0.0');
 define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT']);
