@@ -8,8 +8,8 @@
 
 
 # -- Access control --
-# Header set Access-Control-Allow-Origin "*"
-# Header set Access-Control-Allow-Methods "DELETE, POST, GET, PUT, OPTIONS"
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "DELETE, POST, GET, PUT, OPTIONS"
 # Header set Access-Control-Allow-Headers "Origin, Content-Type"
 # Header set Access-Control-Request-Headers "Origin, Content-Type"
 # Header set Access-Control-Allow-Credentials false
@@ -20,6 +20,12 @@ Options All -Indexes
 
 # -- Allow rewrite permissions for custom directories --
 RewriteEngine On
+
+# -- Block access to non .php files --
+<FilesMatch "\.(?!(php)$)[^\.]+$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
 
 # -- Restrict Access to .php Files in the Web App --
 RewriteCond %{REQUEST_FILENAME} -f
